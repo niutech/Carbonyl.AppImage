@@ -1,0 +1,4 @@
+bin
+build
+.wget-hsts
+*.AppImage
