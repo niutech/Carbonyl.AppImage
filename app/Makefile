@@ -10,7 +10,7 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-REVISION:=69
+VERSION:=0.0.2
 PWD:=$(shell pwd)
 
 .PHONY: all
@@ -29,8 +29,8 @@ all: clean init
         libxdamage1 libxext6 libxfixes3 libxkbcommon0 libxml2 libxnvctrl0 \
         libxrandr2 libxslt1.1 zlib1g libgtk-3-0
 
-	wget -O ${PWD}/build/build.zip https://refloat.ci/artifact/fathyb/carbonyl/$(REVISION)/carbonyl.linux-amd64.zip
-	unzip ${PWD}/build/build.zip -d ${PWD}/build/carbonyl
+	wget -O ${PWD}/build/build.zip https://github.com/fathyb/carbonyl/releases/download/v$(VERSION)/carbonyl.linux-amd64.zip
+	unzip ${PWD}/build/build.zip -d ${PWD}/build/
 
 	echo ''                                                           >> $(PWD)/build/Boilerplate.AppDir/AppRun
 	echo ''                                                           >> $(PWD)/build/Boilerplate.AppDir/AppRun
@@ -41,7 +41,7 @@ all: clean init
 	echo 'exec $${APPDIR}/carbonyl/carbonyl "$${@}"'                  >> $(PWD)/build/Boilerplate.AppDir/AppRun
 
 
-	cp -fr $(PWD)/build/carbonyl/* $(PWD)/build/Boilerplate.AppDir/carbonyl
+	cp -fr $(PWD)/build/carbonyl-$(VERSION)/* $(PWD)/build/Boilerplate.AppDir/carbonyl
 
 	rm -f $(PWD)/build/Boilerplate.AppDir/*.desktop
 
@@ -49,8 +49,8 @@ all: clean init
 	cp -f $(PWD)/AppDir/*.png     $(PWD)/build/Boilerplate.AppDir/       || true
 	cp -f $(PWD)/AppDir/*.svg     $(PWD)/build/Boilerplate.AppDir/       || true
 
-	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage $(PWD)/build/Boilerplate.AppDir $(PWD)/carbonyl.AppImage
-	chmod +x $(PWD)/carbonyl.AppImage
+	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage $(PWD)/build/Boilerplate.AppDir $(PWD)/Carbonyl.AppImage
+	chmod +x $(PWD)/Carbonyl.AppImage
 
 init:
 	mkdir -p $(PWD)/bin
